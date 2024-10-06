@@ -35,9 +35,6 @@ func _process(delta: float) -> void:
 			velocity.y -= 1
 		else:
 			is_moving = false
-	#if !(Input.is_action_pressed("move_right") || Input.is_action_pressed("move_up") || Input.is_action_pressed("move_left") || Input.is_action_pressed("move_down")):
-		#velocity = Vector2.ZERO # The player's movement vector.
-	#reset_movement_after_seconds(2)
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -46,7 +43,11 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.stop()
 
 	position += velocity * delta
+	var pos_before_clamp = position
 	position = position.clamp(Vector2.ZERO, screen_size)
+	if (pos_before_clamp) != position:
+#		# We're at the edge of the screen if clamp had to work, stop us
+		stop_movement()
 	
 	if velocity.x != 0:
 		$AnimatedSprite2D.flip_v = false
@@ -58,9 +59,12 @@ func start(pos):
 	show()
 	$CollisionShape2D.disabled = false
 
+func stop_movement():
+	is_moving = false
+	velocity = Vector2.ZERO
 
 func _on_body_entered(body: Node2D) -> void:
-	hide() # Player disappears after being hit.
+	stop_movement()
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
