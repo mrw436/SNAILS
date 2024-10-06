@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6sbfqab8jv87"]
+
+[ext_resource type="Texture2D" uid="uid://cr0nv4yq85mlj" path="res://snail!! 1.png" id="1_pgm1k"]
+[ext_resource type="Texture2D" uid="uid://bessw1wxnv7j5" path="res://snail!! 2.png" id="2_tiln0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ssnnt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pgm1k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_tiln0")
+}],
+"loop": true,
+"name": &"move",
+"speed": 2.0
+}]
+
+[node name="Player" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ssnnt")
+animation = &"move"
+frame_progress = 0.606178
