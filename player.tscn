@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnk3fks2byy0g"]
+[gd_scene load_steps=6 format=3 uid="uid://cnk3fks2byy0g"]
 
+[ext_resource type="Script" path="res://player.gd" id="1_kp2vg"]
 [ext_resource type="Texture2D" uid="uid://cr0nv4yq85mlj" path="res://snail!! 1.png" id="1_pgm1k"]
 [ext_resource type="Texture2D" uid="uid://bessw1wxnv7j5" path="res://snail!! 2.png" id="2_tiln0"]
 
@@ -21,13 +22,16 @@ animations = [{
 size = Vector2(153, 83)
 
 [node name="Player" type="Area2D"]
+script = ExtResource("1_kp2vg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_ssnnt")
 animation = &"move"
-frame_progress = 0.0209627
+frame_progress = 0.651213
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, -15.5)
 shape = SubResource("RectangleShape2D_ceqbr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
