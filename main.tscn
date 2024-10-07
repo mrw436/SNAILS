@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=4 uid="uid://c5ql72yca53ah"]
+[gd_scene load_steps=7 format=4 uid="uid://c5ql72yca53ah"]
 
 [ext_resource type="TileSet" uid="uid://d2jg2uijdktxu" path="res://new_tile_set.tres" id="1_2acn7"]
 [ext_resource type="PackedScene" uid="uid://cnk3fks2byy0g" path="res://player.tscn" id="2_blvh2"]
 [ext_resource type="PackedScene" uid="uid://p1ohkvm6iwux" path="res://mole.tscn" id="3_g14or"]
 [ext_resource type="PackedScene" uid="uid://cj6s65xatf6g3" path="res://hud.tscn" id="4_31mq8"]
+[ext_resource type="AudioStream" uid="uid://c2pcsklk3c8re" path="res://Juhani Junkala [Chiptune Adventures] 1. Stage 1.wav" id="5_sf0s5"]
+[ext_resource type="Script" path="res://audio_stream_player.gd" id="6_j5of6"]
 
 [node name="Main" type="Node"]
 
@@ -21,5 +23,9 @@ position = Vector2(114, 156)
 scale = Vector2(2, 2)
 
 [node name="HUD" parent="." instance=ExtResource("4_31mq8")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_sf0s5")
+script = ExtResource("6_j5of6")
 
 [connection signal="finish_level" from="Mole" to="HUD" method="level_finished"]
