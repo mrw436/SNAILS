@@ -13,11 +13,13 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAHAAUAAAABAAAAAQACAAYAAAACAAAAAQACAAY
 tile_set = ExtResource("1_2acn7")
 
 [node name="Player" parent="." instance=ExtResource("2_blvh2")]
-position = Vector2(177, 85)
+position = Vector2(104, 84)
 scale = Vector2(0.2, 0.2)
 
 [node name="Mole" parent="." instance=ExtResource("3_g14or")]
-position = Vector2(177, 85)
-scale = Vector2(0.6, 0.6)
+position = Vector2(114, 156)
+scale = Vector2(2, 2)
 
 [node name="HUD" parent="." instance=ExtResource("4_31mq8")]
+
+[connection signal="finish_level" from="Mole" to="HUD" method="level_finished"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://p1ohkvm6iwux"]
+[gd_scene load_steps=6 format=3 uid="uid://p1ohkvm6iwux"]
 
 [ext_resource type="Texture2D" uid="uid://bqdt8uaotpdts" path="res://Mole-frame2.png" id="1_af55s"]
+[ext_resource type="Script" path="res://mole.gd" id="1_la3sy"]
 [ext_resource type="Texture2D" uid="uid://b012fpt30dx2l" path="res://Mole.png" id="2_0dpfg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i5mux"]
@@ -14,14 +15,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 1.0
+"speed": 3.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hca5j"]
+size = Vector2(14.3333, 13.3333)
 
 [node name="Mole" type="Area2D"]
 scale = Vector2(3, 3)
+script = ExtResource("1_la3sy")
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_i5mux")
-frame_progress = 0.697851
+frame_progress = 0.766494
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -6)
+shape = SubResource("RectangleShape2D_hca5j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
