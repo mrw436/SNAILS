@@ -4,10 +4,13 @@ signal hit
 @export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 
+var tilemap # Reference to your TileMap
+var water_tile_id = 3 # ID for water tile in the TileSet
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	tilemap = get_node("../TileMapLayer") # Get the TileMap node (adjust the path)
 
 var is_moving = false
 
@@ -34,7 +37,13 @@ func _process(delta: float) -> void:
 
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		print("I collided with ", collision.get_collider().name)
+		print(collision.get_collider())
+		var tile_pos = tilemap.get_coords_for_body_rid(collision.get_collider_rid())
+		var tile_id = tilemap.get_cell_tile_data(tile_pos).get_terrain() # Get the tile ID at the player's position
+		print("I collided with ", tile_id)
+		# tile_id 2 is water
+		if tile_id == 2:
+			kill_snail()
 		is_moving = false
 		velocity = Vector2(0,0);
 	
@@ -43,17 +52,14 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = velocity.x > 0
 	# This is where the up/down sprite logic would usually go if we had one
 		
+		
+func kill_snail():
+	hide() # Player disappears after being hit.
+	hit.emit()
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true)
+
 func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
-
-func stop_movement():
-	print('movement stopped')
-	is_moving = false
-	velocity = Vector2.ZERO
-
-func _on_body_entered(_body: Node2D) -> void:
-	print('on body entered')
-	stop_movement()
-	hit.emit()
