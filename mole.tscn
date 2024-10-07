@@ -22,6 +22,6 @@ scale = Vector2(3, 3)
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_i5mux")
-frame_progress = 0.110825
+frame_progress = 0.244731
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
