@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 signal hit
 
 @export var speed = 400 # How fast the player will move (pixels/sec).
@@ -8,13 +8,7 @@ var screen_size # Size of the game window.
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	
-func reset_movement_after_seconds(seconds: int):
-	await get_tree().create_timer(seconds).timeout # Wait for x seconds
-	velocity = Vector2.ZERO
-	is_moving = false
 
-var velocity = Vector2.ZERO # The player's movement vector.
 var is_moving = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,16 +16,12 @@ func _process(delta: float) -> void:
 	if (!is_moving):
 		is_moving = true
 		if Input.is_action_pressed("move_right"):
-			reset_movement_after_seconds(2)
 			velocity.x += 1
 		elif Input.is_action_pressed("move_left"):
-			reset_movement_after_seconds(2)
 			velocity.x -= 1
 		elif Input.is_action_pressed("move_down"):
-			reset_movement_after_seconds(2)
 			velocity.y += 1
 		elif Input.is_action_pressed("move_up"):
-			reset_movement_after_seconds(2)
 			velocity.y -= 1
 		else:
 			is_moving = false
@@ -42,12 +32,11 @@ func _process(delta: float) -> void:
 	else:
 		$AnimatedSprite2D.stop()
 
-	position += velocity * delta
-	var pos_before_clamp = position
-	position = position.clamp(Vector2.ZERO, screen_size)
-	if (pos_before_clamp) != position:
-#		# We're at the edge of the screen if clamp had to work, stop us
-		stop_movement()
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		print("I collided with ", collision.get_collider().name)
+		is_moving = false
+		velocity = Vector2(0,0);
 	
 	if velocity.x != 0:
 		$AnimatedSprite2D.flip_v = false
@@ -60,11 +49,11 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 func stop_movement():
+	print('movement stopped')
 	is_moving = false
 	velocity = Vector2.ZERO
 
 func _on_body_entered(body: Node2D) -> void:
+	print('on body entered')
 	stop_movement()
 	hit.emit()
-	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)

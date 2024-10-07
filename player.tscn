@@ -21,7 +21,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ceqbr"]
 size = Vector2(153, 83)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_kp2vg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -33,5 +33,3 @@ frame_progress = 0.690388
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, -15.5)
 shape = SubResource("RectangleShape2D_ceqbr")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
