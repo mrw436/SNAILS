@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj6s65xatf6g3"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_m8ruy"]
+
+[sub_resource type="SystemFont" id="SystemFont_t4nj7"]
+
+[sub_resource type="SystemFont" id="SystemFont_hp3em"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_m8ruy")
+
+[node name="NextLevelButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -166.5
+offset_top = -48.0
+offset_right = 166.5
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_t4nj7")
+theme_override_font_sizes/font_size = 64
+text = "Next Level"
+
+[node name="SuccessLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_right = 155.0
+offset_bottom = 88.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("SystemFont_hp3em")
+theme_override_font_sizes/font_size = 64
+text = "You did it!"
+
+[connection signal="pressed" from="NextLevelButton" to="." method="_on_next_level_button_pressed"]
