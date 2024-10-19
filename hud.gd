@@ -23,7 +23,7 @@ func level_finished() -> void:
 
 func _on_next_level_button_pressed() -> void:
 	if cur_level == 1:
-		cur_level = 2
+		cur_level = 2;
 		get_tree().change_scene_to_file("res://level_2.tscn");
-	if cur_level == 2:
+	elif cur_level == 2:
 		get_tree().change_scene_to_file("res://level_3.tscn");
