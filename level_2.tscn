@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://c2pcsklk3c8re" path="res://Juhani Junkala [Chiptune Adventures] 1. Stage 1.wav" id="5_kppst"]
 [ext_resource type="Script" path="res://audio_stream_player.gd" id="6_youh5"]
 
-[node name="Main" type="Node"]
+[node name="main" type="Node"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(0, 97)
