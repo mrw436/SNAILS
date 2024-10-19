@@ -58,6 +58,8 @@ func kill_snail():
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
+	await get_tree().create_timer(0.5).timeout;
+	get_tree().reload_current_scene();
 
 func start(pos):
 	position = pos
