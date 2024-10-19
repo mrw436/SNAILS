@@ -37,10 +37,10 @@ func _process(delta: float) -> void:
 
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		print(collision.get_collider())
+		#print(collision.get_collider())
 		var tile_pos = tilemap.get_coords_for_body_rid(collision.get_collider_rid())
 		var tile_id = tilemap.get_cell_tile_data(tile_pos).get_terrain() # Get the tile ID at the player's position
-		print("I collided with ", tile_id)
+		#print("I collided with ", tile_id)
 		# tile_id 2 is water
 		if tile_id == 2:
 			kill_snail()
