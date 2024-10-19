@@ -18,3 +18,4 @@ mono_crash.*.json
 *.dmg
 *apple-touch-icon*
 HTML/
+.DS_Store
