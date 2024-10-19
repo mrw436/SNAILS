@@ -7,6 +7,8 @@ var screen_size # Size of the game window.
 var tilemap # Reference to your TileMap
 var water_tile_id = 3 # ID for water tile in the TileSet
 
+var level_finished = false;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -58,10 +60,16 @@ func kill_snail():
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
-	await get_tree().create_timer(0.5).timeout;
-	get_tree().reload_current_scene();
+	if(!level_finished):
+		await get_tree().create_timer(0.5).timeout;
+		get_tree().reload_current_scene();
 
 func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+
+
+func _on_finish_level() -> void:
+	print("is this being called please god")
+	level_finished = true;

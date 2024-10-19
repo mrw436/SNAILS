@@ -10,7 +10,7 @@ var cur_level = 1;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(get_tree().current_scene)
+	#print(get_tree().current_scene)
 	if Input.is_action_pressed("level_one"):
 		get_tree().change_scene_to_file("res://level_1.tscn");
 	elif Input.is_action_pressed("level_two"):
@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 		get_tree().change_scene_to_file("res://level_3.tscn");
 	
 func level_finished() -> void:
+	print("hud level finished called");
 	$NextLevelButton.show();
 	$SuccessLabel.show();
 

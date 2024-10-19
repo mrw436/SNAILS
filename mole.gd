@@ -6,4 +6,5 @@ func _ready() -> void:
 	$AnimatedSprite2D.play();
 
 func _on_body_entered(_body: Node2D) -> void:
+	print("emitting finish level")
 	finish_level.emit();
